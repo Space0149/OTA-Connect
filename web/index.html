@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://cdn.socket.io; style-src 'self'; img-src 'self' data: https://cdn.discordapp.com https://media.discordapp.net; connect-src 'self' http: https: ws: wss:; media-src 'self' blob:; font-src 'self' data:;"
+    />
+    <title>OTA Connect Web</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="join-panel" id="joinPanel">
+        <div class="brand">
+          <div class="brand-mark">OTA</div>
+          <div>
+            <h1>OTA Connect</h1>
+            <p>Discord-authenticated room comms on the open web.</p>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Backend URL</span>
+          <input id="serverInput" type="url" placeholder="https://api.example.com" autocomplete="off" />
+        </label>
+
+        <button class="discord-button" id="loginButton" type="button">Login with Discord</button>
+
+        <div class="profile-row hidden" id="profileRow">
+          <img id="profileAvatar" alt="" />
+          <span id="profileName"></span>
+        </div>
+
+        <label class="field">
+          <span>Room ID</span>
+          <input id="roomInput" type="text" placeholder="ABC123" maxlength="32" autocomplete="off" />
+        </label>
+
+        <button class="join-button" id="joinButton" type="button">Join Room</button>
+        <p class="hint-text">Use this folder as your static web client and point it at your OTA Connect backend.</p>
+        <p class="error-text" id="joinError"></p>
+      </section>
+
+      <section class="chat-shell hidden" id="chatShell">
+        <header class="chat-header">
+          <div>
+            <h2 id="roomTitle">Room</h2>
+            <p id="typingStatus">No one is typing</p>
+          </div>
+          <div class="header-actions">
+            <div class="voice-status" id="voiceStatus">Voice idle</div>
+            <button class="voice-button" id="voiceButton" type="button">Join Voice</button>
+            <button class="mute-button hidden" id="muteButton" type="button">Mute</button>
+            <div class="status-pill" id="connectionStatus">Disconnected</div>
+          </div>
+        </header>
+
+        <section class="messages" id="messages"></section>
+
+        <form class="composer" id="messageForm">
+          <input id="messageInput" type="text" placeholder="Send a message..." autocomplete="off" maxlength="2000" />
+          <button type="submit">Send</button>
+        </form>
+
+        <section class="transcript-panel">
+          <div class="transcript-header">
+            <span>Operations Log</span>
+            <button id="leaveButton" type="button">Leave</button>
+          </div>
+          <div class="transcript" id="transcript"></div>
+        </section>
+      </section>
+
+      <div class="remote-audio" id="remoteAudio"></div>
+    </main>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
